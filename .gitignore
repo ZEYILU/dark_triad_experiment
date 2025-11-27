@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+
+# 环境变量
+.env
+
+# IDE/编辑器
+.vscode/
+.idea/
+.claude/
+
+# 配置文件
+configs/
+
+# 数据文件
+data/
+*.csv
+
+# 结果和临时文件
+results/
+figures/
+*.png
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# 测试和遗留代码(可选)
+legacy/
+tests/
+
+# 其他
+.DS_Store
