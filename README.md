@@ -160,15 +160,6 @@ python tests/test_refactoring.py
 python scripts/run_experiment.py --test-mode
 ```
 
-## Experiment Modes
-
-| Mode | Duration | Cost | Use Case |
-|------|----------|------|----------|
-| Test | 5 min | $0.10 | Environment verification |
-| Quick | 30 min | $1-2 | Initial exploration |
-| Standard | 2-3 hours | $15-20 | Presentation data |
-| Full | 3-4 hours | $18-25 | Publication data |
-
 ## Output
 
 After running experiments, you'll get:
@@ -219,19 +210,6 @@ python -m pytest tests/
 
 # Check configuration
 python tests/test_refactoring.py
-```
-
-## Citation
-
-If you use this framework in your research, please cite:
-
-```bibtex
-@inproceedings{dark-triad-llm-2025,
-  title={Analyzing LLM Responses to Dark Triad Behavioral Patterns},
-  author={[Your Name]},
-  booktitle={Proceedings of ACL 2026},
-  year={2026}
-}
 ```
 
 ## License
