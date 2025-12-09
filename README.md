@@ -8,7 +8,7 @@ A modular framework for analyzing how Large Language Models respond to Dark Tria
 
 ## Features
 
-- **Comprehensive Dataset**: 126 prompts covering Dark Triad traits (Machiavellianism, Narcissism, Psychopathy)
+- **Comprehensive Dataset**: 192 prompts covering Dark Triad traits (Machiavellianism, Narcissism, Psychopathy)
 - **Multiple LLM Support**: OpenAI (GPT-4, GPT-3.5) and Anthropic (Claude 3 family)
 - **Automated Classification**: Rule-based and LLM-as-Judge classification systems
 - **Rich Analysis**: Statistical analysis, visualizations, and inter-annotator agreement metrics
@@ -65,7 +65,7 @@ dark_triad_experiment/
 │   └── keywords.yaml      # Classification keywords
 │
 ├── data/                  # Datasets
-│   ├── Dark_Triad_Dataset_FINAL.csv  # Main dataset (126 prompts)
+│   ├── Dark_Triad_Dataset_Merged.csv  # Main dataset (192 prompts)
 │   └── samples/           # Validation & annotation samples
 │
 ├── docs/                  # Documentation
@@ -85,13 +85,13 @@ dark_triad_experiment/
 
 ## Dataset
 
-The dataset includes **126 prompts** based on the Dark Triad framework:
+The dataset includes **192 prompts** based on the Dark Triad framework:
 
-- **42 scenarios** × **3 severity levels** (LOW, MEDIUM, HIGH)
+- **64 scenarios** × **3 severity levels** (LOW, MEDIUM, HIGH)
 - **5 contexts**: Workplace, Friendship, Romantic Relationships, Society, Family
 - **3 traits**: Machiavellianism, Narcissism, Psychopathy
 
-Dataset location: `data/Dark_Triad_Dataset_FINAL.csv`
+Dataset location: `data/Dark_Triad_Dataset_Merged.csv`
 
 ## Response Classification
 
@@ -269,5 +269,5 @@ For more help, see [QUICK_START.md](QUICK_START.md)
 
 ---
 
-**Contact**: [Your Email]  
-**Institution**: [Your Institution]
+**Contact**: zeyi.lu@study.thws.de
+**Institution**: Technische Hochschule Würzburg-Schweinfurt
