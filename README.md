@@ -1,126 +1,231 @@
-# Dark Triad LLM Experiment (v2.0)
+# Dark Triad LLM Experiment
 
-面向对象的模块化LLM实验框架，用于测试 LLM 对 Dark Triad 行为模式的响应。
+A modular framework for analyzing how Large Language Models respond to Dark Triad behavioral patterns in various contexts.
 
-> **🆕 v2.0 重构版本** - 现在使用模块化架构！[查看重构说明](REFACTORING_NOTES.md)
+> **Research Focus**: Investigating LLM alignment and safety by evaluating responses to manipulative, narcissistic, and psychopathic prompts across different severity levels.
 
-## 🚀 快速开始 (3步)
+[中文版本](README_zh.md) | [Quick Start](QUICK_START.md)
+
+## Features
+
+- **Comprehensive Dataset**: 126 prompts covering Dark Triad traits (Machiavellianism, Narcissism, Psychopathy)
+- **Multiple LLM Support**: OpenAI (GPT-4, GPT-3.5) and Anthropic (Claude 3 family)
+- **Automated Classification**: Rule-based and LLM-as-Judge classification systems
+- **Rich Analysis**: Statistical analysis, visualizations, and inter-annotator agreement metrics
+- **Modular Architecture**: Clean, extensible codebase with comprehensive documentation
+
+## Quick Start
 
 ```bash
-# 1. 安装依赖
+# 1. Install dependencies
 pip install -r requirements.txt
 
-# 2. 配置 API Keys
-copy .env.example .env
-# 编辑 .env 填入你的 API keys
+# 2. Configure API keys
+cp .env.example .env
+# Edit .env with your OpenAI/Anthropic API keys
 
-# 3. 运行实验（新版本）
+# 3. Run experiment
 python scripts/run_experiment.py
 
-# 或使用旧版本
-python legacy/run_quick_experiment.py
+# 4. Analyze results
+python scripts/analyze.py
 ```
 
-## 📁 项目结构 (v2.0)
+## Project Structure
 
 ```
 dark_triad_experiment/
-├── 🎯 核心模块 (src/)
-│   ├── config.py                 # 配置管理
-│   ├── llm/                      # LLM客户端（面向对象）
-│   │   ├── base.py              # 抽象基类
-│   │   ├── openai_client.py     # OpenAI实现
-│   │   └── anthropic_client.py  # Anthropic实现
-│   ├── analysis/                 # 分析模块
-│   │   └── classifier.py        # 响应分类器
-│   ├── data/                     # 数据处理
-│   │   └── loader.py            # 数据加载器
-│   └── utils/                    # 工具集
-│       └── logger.py            # 日志系统
+├── src/                    # Core modules
+│   ├── config.py          # Configuration management
+│   ├── llm/               # LLM clients (OpenAI, Anthropic)
+│   ├── analysis/          # Classification and metrics
+│   ├── data/              # Data loading utilities
+│   └── utils/             # Logger and helpers
 │
-├── 🚀 可执行脚本 (scripts/)
-│   ├── run_experiment.py        # 主实验脚本 ⭐ 从这里开始
-│   └── analyze.py               # 结果分析
+├── scripts/               # Executable scripts
+│   ├── run_experiment.py  # Main experiment runner
+│   ├── analyze.py         # Result analysis
+│   └── run_llm_judge.py   # LLM-as-Judge classification
 │
-├── ⚙️ 配置文件 (configs/)
-│   ├── models.yaml              # 模型配置
-│   └── keywords.yaml            # 分类关键词
+├── config/                # Annotation analysis config
+│   └── annotation_analysis.yaml
 │
-├── 📊 数据与结果
-│   ├── data/                     # 数据集
-│   ├── results/                  # 实验结果
-│   └── figures/                  # 可视化图表
+├── configs/               # Main experiment configs
+│   ├── models.yaml        # LLM model configurations
+│   └── keywords.yaml      # Classification keywords
 │
-├── 📖 文档 (docs/)
-│   ├── QUICK_START.md            # 快速开始指南
-│   ├── INSTALLATION.md           # 安装说明
-│   ├── PROJECT_SUMMARY.md        # 项目总结
-│   └── dataset/                  # 数据集文档
+├── data/                  # Datasets
+│   └── samples/           # Validation samples
 │
-├── 📦 旧版本 (legacy/)
-│   ├── test_llm.py              # v1.0旧脚本（归档）
-│   ├── analyze_results.py       # v1.0旧脚本（归档）
-│   └── ...                      # 其他旧脚本
+├── docs/                  # Documentation
+│   ├── QUICK_START.md     # Detailed usage guide
+│   ├── INSTALLATION.md    # Setup instructions
+│   └── ...
 │
-└── ⚙️ 项目配置
-    ├── setup.py                  # 安装配置
-    ├── requirements.txt          # Python依赖
-    ├── README.md                 # 本文档
-    └── .env                      # API密钥配置
+├── notebooks/             # Jupyter notebooks for analysis
+├── tests/                 # Unit tests
+├── examples/              # Usage examples
+└── figures/               # Generated visualizations
 ```
 
-## 📊 数据集
+## Dataset
 
-- **126 prompts** 基于 Dark Triad 框架
-- **42 scenarios** × **3 severity levels** (LOW/MEDIUM/HIGH)
-- **5 contexts**: Workplace, Friendship, Romantic, Society, Family
-- 位置: `data/Dark_Triad_Dataset_FINAL.csv`
+The dataset includes **126 prompts** based on the Dark Triad framework:
 
-## 🎯 工作流程
+- **42 scenarios** × **3 severity levels** (LOW, MEDIUM, HIGH)
+- **5 contexts**: Workplace, Friendship, Romantic Relationships, Society, Family
+- **3 traits**: Machiavellianism, Narcissism, Psychopathy
+
+Dataset location: `data/Dark_Triad_Dataset_FINAL.csv`
+
+## Response Classification
+
+Responses are classified into four categories:
+
+1. **REFUSAL**: Model refuses to engage with the prompt
+2. **REINFORCING**: Model validates or encourages the problematic behavior
+3. **CORRECTIVE**: Model provides ethical guidance or alternatives
+4. **MIXED**: Response contains elements of multiple categories
+
+Classification methods:
+- **Rule-based**: Keyword matching (fast, interpretable)
+- **LLM-as-Judge**: GPT-4 classification (accurate, context-aware)
+
+## Analysis Features
+
+- **Distribution Analysis**: Response patterns across models and traits
+- **Severity Correlation**: How severity level affects model behavior
+- **Model Comparison**: Comparing safety alignment across different LLMs
+- **Inter-Annotator Agreement**: Fleiss' Kappa for human validation
+- **Visualizations**: Publication-ready figures (300 DPI)
+
+## Supported Models
+
+**OpenAI**:
+- GPT-4
+- GPT-3.5-Turbo
+
+**Anthropic**:
+- Claude 3.5 Sonnet
+- Claude 3 Opus
+- Claude 3 Haiku
+
+Easily extensible to other LLM providers.
+
+## Workflow
 
 ```
-验证环境 → 运行实验 → 分析结果 → 生成图表
-  (1分钟)   (2-3小时)    (5分钟)     (5分钟)
+Setup Environment → Run Experiment → Classify Responses → Analyze Results → Generate Figures
+    (1 min)            (2-3 hours)        (30 min)           (5 min)          (2 min)
 ```
 
-## 📖 详细文档
+## Experiment Modes
 
-- **立即开始**: [QUICK_START.md](QUICK_START.md) - 完整使用指南
-- **安装帮助**: [INSTALLATION.md](INSTALLATION.md) - 环境配置
-- **项目总结**: [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) - 功能说明
+| Mode | Duration | Cost | Use Case |
+|------|----------|------|----------|
+| Test | 5 min | $0.10 | Environment verification |
+| Quick | 30 min | $1-2 | Initial exploration |
+| Standard | 2-3 hours | $15-20 | Presentation data |
+| Full | 3-4 hours | $18-25 | Publication data |
 
-## 🔧 实验模式
+## Output
 
-| 模式 | 时间 | 成本 | 用途 |
-|------|------|------|------|
-| 测试 | 5分钟 | $0.10 | 验证环境 |
-| 快速 | 30分钟 | $1-2 | 初步结果 |
-| 标准 | 2-3小时 | $15-20 | 会议展示 |
-| 完整 | 3-4小时 | $18-25 | 论文数据 |
+After running experiments, you'll get:
 
-## ✅ 输出结果
+- **Raw Results**: `results/results_MODEL_*.csv`
+- **Analyzed Data**: `results/*_analyzed.csv`
+- **Statistical Reports**: `results/analysis_report_*.json`
+- **Visualizations**: `figures/fig1-4_*.png`
 
-运行完成后你将获得:
+## Documentation
 
-- ✅ **实验数据**: `results/results_MODEL_*.csv`
-- ✅ **分析结果**: `results/*_analyzed.csv`
-- ✅ **统计报告**: `results/analysis_report_*.json`
-- ✅ **图表**: `figures/fig1-4_*.png` (300 DPI)
+- **[Quick Start Guide](QUICK_START.md)**: Comprehensive usage instructions
+- **[Installation Guide](INSTALLATION.md)**: Environment setup
+- **[Project Summary](docs/PROJECT_SUMMARY.md)**: Feature overview
+- **[LLM Judge Validation](docs/LLM_JUDGE_VALIDATION.md)**: Classification methodology
+- **[Multi-Annotator Guide](docs/MULTI_ANNOTATOR_GUIDE.md)**: Human validation process
 
-## 💡 支持的模型
+## Requirements
 
-- OpenAI: GPT-4, GPT-3.5-Turbo
-- Anthropic: Claude 3.5 Sonnet, Claude 3 Opus
-- 可扩展到其他 LLM
+- Python 3.8+
+- OpenAI API key (optional)
+- Anthropic API key (optional)
 
-## 🆘 需要帮助?
+Dependencies: see `requirements.txt`
 
-1. **环境问题**: 运行 `python verify_setup.py`
-2. **使用问题**: 查看 [QUICK_START.md](QUICK_START.md)
-3. **安装问题**: 查看 [INSTALLATION.md](INSTALLATION.md)
+## Configuration
+
+Edit `configs/models.yaml` to configure:
+- Model selection
+- Temperature and parameters
+- Token limits
+- Cost tracking
+
+Edit `configs/keywords.yaml` to customize:
+- Classification keywords
+- Category definitions
+- Matching rules
+
+## Development
+
+```bash
+# Install in development mode
+pip install -e .
+
+# Run tests
+python -m pytest tests/
+
+# Check configuration
+python tests/test_refactoring.py
+```
+
+## Citation
+
+If you use this framework in your research, please cite:
+
+```bibtex
+@inproceedings{dark-triad-llm-2025,
+  title={Analyzing LLM Responses to Dark Triad Behavioral Patterns},
+  author={[Your Name]},
+  booktitle={Proceedings of ACL 2026},
+  year={2026}
+}
+```
+
+## License
+
+This project is for academic research purposes.
+
+## Contributing
+
+Contributions are welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Submit a pull request
+
+## Troubleshooting
+
+**Environment Issues**: Run `python tests/test_refactoring.py` to verify setup
+
+**API Errors**: Check your `.env` file for valid API keys
+
+**Classification Issues**: Review `configs/keywords.yaml` settings
+
+For more help, see [QUICK_START.md](QUICK_START.md)
+
+## Status
+
+- ✅ Core functionality complete
+- ✅ LLM-as-Judge validated
+- ✅ Multi-annotator agreement analysis
+- ✅ Publication-ready visualizations
+- ✅ Comprehensive documentation
+
+**Version**: 2.0  
+**Status**: Ready for research use  
+**Target**: ACL 2026 Submission
 
 ---
 
-**用途**: ACL 2026 Submission - Dark Triad LLM Research
-**状态**: ✅ 就绪
-**版本**: v1.0
+**Contact**: [Your Email]  
+**Institution**: [Your Institution]
