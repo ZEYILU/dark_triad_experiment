@@ -27,9 +27,17 @@ cp .env.example .env
 # 3. Run experiment
 python scripts/run_experiment.py
 
-# 4. Analyze results
+# 4. Run LLM-as-Judge classification
+python scripts/run_llm_judge.py
+
+# 5. Analyze results
 python scripts/analyze.py
+
+# 6. Multi-annotator agreement (optional)
+python scripts/analyze_multi_annotators.py
 ```
+
+For detailed instructions, see [QUICK_START.md](QUICK_START.md)
 
 ## Project Structure
 
@@ -44,8 +52,10 @@ dark_triad_experiment/
 │
 ├── scripts/               # Executable scripts
 │   ├── run_experiment.py  # Main experiment runner
+│   ├── run_llm_judge.py   # LLM-as-Judge classification
 │   ├── analyze.py         # Result analysis
-│   └── run_llm_judge.py   # LLM-as-Judge classification
+│   ├── analyze_multi_annotators.py  # Inter-annotator agreement
+│   └── ...                # Other analysis scripts
 │
 ├── config/                # Annotation analysis config
 │   └── annotation_analysis.yaml
@@ -55,16 +65,21 @@ dark_triad_experiment/
 │   └── keywords.yaml      # Classification keywords
 │
 ├── data/                  # Datasets
-│   └── samples/           # Validation samples
+│   ├── Dark_Triad_Dataset_FINAL.csv  # Main dataset (126 prompts)
+│   └── samples/           # Validation & annotation samples
 │
 ├── docs/                  # Documentation
 │   ├── QUICK_START.md     # Detailed usage guide
 │   ├── INSTALLATION.md    # Setup instructions
-│   └── ...
+│   ├── LLM_JUDGE_VALIDATION.md
+│   └── MULTI_ANNOTATOR_GUIDE.md
 │
 ├── notebooks/             # Jupyter notebooks for analysis
+│   └── run_llm_judge_analysis.ipynb
+│
 ├── tests/                 # Unit tests
 ├── examples/              # Usage examples
+├── legacy/                # Legacy v1.0 scripts (archived)
 └── figures/               # Generated visualizations
 ```
 
@@ -93,11 +108,23 @@ Classification methods:
 
 ## Analysis Features
 
+### Automated Classification
+- **Rule-based Classifier**: Fast keyword-based classification
+- **LLM-as-Judge**: GPT-4 powered classification with confidence scores
+- **Hybrid Approach**: Combining both methods for robust results
+
+### Statistical Analysis
 - **Distribution Analysis**: Response patterns across models and traits
 - **Severity Correlation**: How severity level affects model behavior
 - **Model Comparison**: Comparing safety alignment across different LLMs
-- **Inter-Annotator Agreement**: Fleiss' Kappa for human validation
-- **Visualizations**: Publication-ready figures (300 DPI)
+- **Inter-Annotator Agreement**: Fleiss' Kappa, Cohen's Kappa for human validation
+- **Confusion Matrices**: Classifier performance evaluation
+
+### Visualizations
+- Publication-ready figures (300 DPI)
+- Distribution charts, bar plots, heatmaps
+- Severity analysis and trait comparisons
+- Multi-annotator agreement visualizations
 
 ## Supported Models
 
@@ -114,9 +141,23 @@ Easily extensible to other LLM providers.
 
 ## Workflow
 
+### Standard Workflow
 ```
-Setup Environment → Run Experiment → Classify Responses → Analyze Results → Generate Figures
-    (1 min)            (2-3 hours)        (30 min)           (5 min)          (2 min)
+1. Setup Environment     → Install dependencies and configure API keys (5 min)
+2. Run Experiment        → Generate LLM responses (2-3 hours)
+3. LLM Judge Analysis    → Classify responses using GPT-4 (30 min)
+4. Human Validation      → Multi-annotator agreement (optional)
+5. Analyze Results       → Statistical analysis (5 min)
+6. Generate Figures      → Publication-ready visualizations (2 min)
+```
+
+### Quick Test
+```bash
+# Verify setup
+python tests/test_refactoring.py
+
+# Run a small test
+python scripts/run_experiment.py --test-mode
 ```
 
 ## Experiment Modes
@@ -140,10 +181,11 @@ After running experiments, you'll get:
 ## Documentation
 
 - **[Quick Start Guide](QUICK_START.md)**: Comprehensive usage instructions
-- **[Installation Guide](INSTALLATION.md)**: Environment setup
+- **[Installation Guide](docs/INSTALLATION.md)**: Environment setup
 - **[Project Summary](docs/PROJECT_SUMMARY.md)**: Feature overview
 - **[LLM Judge Validation](docs/LLM_JUDGE_VALIDATION.md)**: Classification methodology
 - **[Multi-Annotator Guide](docs/MULTI_ANNOTATOR_GUIDE.md)**: Human validation process
+- **[Visualization Guide](docs/VISUALIZATION_GUIDE.md)**: Generating publication figures
 
 ## Requirements
 
