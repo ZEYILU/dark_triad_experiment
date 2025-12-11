@@ -106,25 +106,12 @@ Classification methods:
 - **Rule-based**: Keyword matching (fast, interpretable)
 - **LLM-as-Judge**: GPT-4 classification (accurate, context-aware)
 
-## Analysis Features
+## Key Features
 
-### Automated Classification
-- **Rule-based Classifier**: Fast keyword-based classification
-- **LLM-as-Judge**: GPT-4 powered classification with confidence scores
-- **Hybrid Approach**: Combining both methods for robust results
-
-### Statistical Analysis
-- **Distribution Analysis**: Response patterns across models and traits
-- **Severity Correlation**: How severity level affects model behavior
-- **Model Comparison**: Comparing safety alignment across different LLMs
-- **Inter-Annotator Agreement**: Fleiss' Kappa, Cohen's Kappa for human validation
-- **Confusion Matrices**: Classifier performance evaluation
-
-### Visualizations
-- Publication-ready figures (300 DPI)
-- Distribution charts, bar plots, heatmaps
-- Severity analysis and trait comparisons
-- Multi-annotator agreement visualizations
+- **Automated Classification**: Rule-based and LLM-as-Judge (GPT-4) classification systems
+- **Statistical Analysis**: Distribution patterns, severity correlation, model comparison
+- **Human Validation**: Multi-annotator agreement with Fleiss' Kappa
+- **Publication-Ready Visualizations**: 300 DPI figures, charts, and heatmaps
 
 ## Supported Models
 
@@ -139,99 +126,32 @@ Classification methods:
 
 Easily extensible to other LLM providers.
 
-## Workflow
-
-### Standard Workflow
-```
-1. Setup Environment     → Install dependencies and configure API keys (5 min)
-2. Run Experiment        → Generate LLM responses (2-3 hours)
-3. LLM Judge Analysis    → Classify responses using GPT-4 (30 min)
-4. Human Validation      → Multi-annotator agreement (optional)
-5. Analyze Results       → Statistical analysis (5 min)
-6. Generate Figures      → Publication-ready visualizations (2 min)
-```
-
-### Quick Test
-```bash
-# Verify setup
-python tests/test_refactoring.py
-
-# Run a small test
-python scripts/run_experiment.py --test-mode
-```
-
 ## Output
 
-After running experiments, you'll get:
-
-- **Raw Results**: `results/results_MODEL_*.csv`
-- **Analyzed Data**: `results/*_analyzed.csv`
-- **Statistical Reports**: `results/analysis_report_*.json`
-- **Visualizations**: `figures/fig1-4_*.png`
+The pipeline generates:
+- Raw experiment results (CSV)
+- Classified responses with confidence scores
+- Statistical analysis reports (JSON)
+- Publication-ready visualizations (PNG, 300 DPI)
 
 ## Documentation
 
-- **[Quick Start Guide](QUICK_START.md)**: Comprehensive usage instructions
+- **[Quick Start Guide](QUICK_START.md)**: Step-by-step usage instructions
 - **[Installation Guide](docs/INSTALLATION.md)**: Environment setup
-- **[Project Summary](docs/PROJECT_SUMMARY.md)**: Feature overview
+- **[Configuration Guide](docs/CONFIG_STRUCTURE.md)**: Understanding config/ and configs/ directories
 - **[LLM Judge Validation](docs/LLM_JUDGE_VALIDATION.md)**: Classification methodology
 - **[Multi-Annotator Guide](docs/MULTI_ANNOTATOR_GUIDE.md)**: Human validation process
-- **[Visualization Guide](docs/VISUALIZATION_GUIDE.md)**: Generating publication figures
 
 ## Requirements
 
 - Python 3.8+
-- OpenAI API key (optional)
-- Anthropic API key (optional)
+- OpenAI and/or Anthropic API keys
 
-Dependencies: see `requirements.txt`
-
-## Configuration
-
-Edit `configs/models.yaml` to configure:
-- Model selection
-- Temperature and parameters
-- Token limits
-- Cost tracking
-
-Edit `configs/keywords.yaml` to customize:
-- Classification keywords
-- Category definitions
-- Matching rules
-
-## Development
-
-```bash
-# Install in development mode
-pip install -e .
-
-# Run tests
-python -m pytest tests/
-
-# Check configuration
-python tests/test_refactoring.py
-```
+See [requirements.txt](requirements.txt) for dependencies.
 
 ## License
 
 This project is for academic research purposes.
-
-## Contributing
-
-Contributions are welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request
-
-## Troubleshooting
-
-**Environment Issues**: Run `python tests/test_refactoring.py` to verify setup
-
-**API Errors**: Check your `.env` file for valid API keys
-
-**Classification Issues**: Review `configs/keywords.yaml` settings
-
-For more help, see [QUICK_START.md](QUICK_START.md)
 
 ## Status
 
